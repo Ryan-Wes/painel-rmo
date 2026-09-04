@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel RMO — Elecnor</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔢</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="titleblock">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+    <p class="eyebrow">Elecnor · Planejamento</p>
+    <h1>Painel RMO — Requisição de Mão de Obra</h1>
+    <p class="sub">Escolha um número disponível para sua requisição. Assim que você confirmar, ele fica indisponível para todo mundo — sem precisar passar no planejamento nem riscar papel.</p>
+  </div>
+
+  <div id="setupBanner" class="banner warn">
+    Este painel ainda não foi configurado: edite <code>firebase-config.js</code> com as credenciais do seu projeto Firebase (veja o README).
+  </div>
+  <div id="offlineBanner" class="banner">
+    Não foi possível conectar ao banco compartilhado agora. Os números abaixo podem estar desatualizados — recarregue a página.
+  </div>
+
+  <div class="bar">
+    <div class="stats">
+      <span><span class="dot ok"></span><b id="statAvail">—</b> disponíveis</span>
+      <span><span class="dot taken"></span><b id="statTaken">—</b> reservados</span>
+    </div>
+    <button class="btn-primary" id="btnNext">Pegar próximo número disponível</button>
+  </div>
+
+  <div class="legend">
+    <span><span class="swatch ok"></span>Disponível — clique para reservar</span>
+    <span><span class="swatch taken"></span>Reservado — passe o mouse para ver por quem</span>
+  </div>
+
+  <div class="sheet">
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <p class="footnote">Faixa 130–349, na mesma ordem da folha impressa. Reservou por engano? Clique no número reservado para liberar.</p>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div id="formView">
+      <p class="modal-num" id="modalNumLabel">NÚMERO 000</p>
+      <h2 id="modalTitle">Confirmar requisição</h2>
+      <div class="msg" id="modalMsg"></div>
+      <label for="nameInput">Seu nome</label>
+      <input type="text" id="nameInput" placeholder="Ex.: Wesley Ryan" autocomplete="name">
+      <div class="modal-actions">
+        <button class="btn-ghost" id="btnCancel">Cancelar</button>
+        <button class="btn-primary" id="btnConfirm">Confirmar</button>
+      </div>
+    </div>
+    <div class="success-view" id="successView">
+      <p class="modal-num">RESERVADO PARA VOCÊ</p>
+      <div class="big" id="successNum">000</div>
+      <p>Anote esse número na sua requisição de mão de obra.</p>
+      <div class="modal-actions" style="justify-content:center;">
+        <button class="btn-primary" id="btnDone">Concluído</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
