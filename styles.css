@@ -117,7 +117,7 @@ button{ font:inherit; }
   background:var(--surface); border:1px solid var(--line); border-radius:4px;
   box-shadow:var(--shadow); padding:4px; overflow-x:auto;
 }
-.grid{ display:grid; grid-template-columns:repeat(10, minmax(46px,1fr)); gap:4px; min-width:520px; }
+.grid{ display:grid; grid-template-columns:repeat(10, minmax(0,1fr)); gap:4px; }
 .cell{
   position:relative;
   font-family:"IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; font-weight:600; font-size:14px;
