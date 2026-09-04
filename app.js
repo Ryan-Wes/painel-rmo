@@ -161,7 +161,7 @@
 
   function confirmClaim(){
     var name = nameInput.value.trim();
-    if(!name){ showMsg('Digite seu nome para confirmar.', 'error'); nameInput.focus(); return; }
+    if(!name){ showMsg('Digite o nome do solicitante para confirmar.', 'error'); nameInput.focus(); return; }
     if(!db){ showMsg('Sem conexão com o banco compartilhado.', 'error'); return; }
     saveName(name);
     var n = claimTarget;
