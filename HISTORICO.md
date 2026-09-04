@@ -45,3 +45,15 @@ Elecnor é **RMO (Requisição de Mão de Obra)**, não "solicitação"/MDO.
 Renomeado o projeto e a pasta (`quadro-mdo` → `painel-rmo`), e ajustados os
 textos da interface ("solicitação" → "requisição") para usar o vocabulário
 correto do time.
+
+## 2026-09-04 — Projeto Firebase criado e configurado
+
+Criado o projeto `painel-rmo` no Firebase (plano Spark, gratuito), banco
+Firestore na região `southamerica-east1`, regras de segurança publicadas
+(leitura livre, criação só com `takenBy`/`takenAt` válidos, sem update,
+delete livre para permitir liberar número por engano).
+
+`firebase-config.js` preenchido com as credenciais reais do projeto.
+Testado localmente (servidor estático + Firestore real): reserva de
+número grava no banco e reflete em tempo real, liberação apaga o
+documento corretamente. Pendente apenas habilitar o GitHub Pages.

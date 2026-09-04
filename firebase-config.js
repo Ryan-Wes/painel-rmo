@@ -6,10 +6,10 @@
 // do site. Quem protege os dados são as REGRAS do Firestore (veja o README.md),
 // não esconder essa chave.
 window.FIREBASE_CONFIG = {
-  apiKey: "COLE_AQUI",
-  authDomain: "SEU-PROJETO.firebaseapp.com",
-  projectId: "SEU-PROJETO",
-  storageBucket: "SEU-PROJETO.appspot.com",
-  messagingSenderId: "COLE_AQUI",
-  appId: "COLE_AQUI"
+  apiKey: "AIzaSyAfxEBQ0MXeoPOi0WhP1YgEj6Xzj51PJWw",
+  authDomain: "painel-rmo.firebaseapp.com",
+  projectId: "painel-rmo",
+  storageBucket: "painel-rmo.firebasestorage.app",
+  messagingSenderId: "206174982218",
+  appId: "1:206174982218:web:4c26d9fad4e6f0037ed6b3"
 };
