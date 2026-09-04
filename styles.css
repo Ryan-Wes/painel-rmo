@@ -115,11 +115,12 @@ button{ font:inherit; }
 /* ---------- Grid ---------- */
 .sheet{
   background:var(--surface); border:1px solid var(--line); border-radius:4px;
-  box-shadow:var(--shadow); padding:4px; overflow-x:auto;
+  box-shadow:var(--shadow); padding:4px; overflow-x:clip;
 }
 .grid{ display:grid; grid-template-columns:repeat(10, minmax(0,1fr)); gap:4px; }
 .cell{
   position:relative;
+  min-width:0;
   font-family:"IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; font-weight:600; font-size:14px;
   border:1px solid var(--ok-line); background:var(--ok-bg); color:var(--ok);
   border-radius:4px; padding:10px 0; text-align:center; cursor:pointer;
