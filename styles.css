@@ -191,3 +191,19 @@ button{ font:inherit; }
 }
 .banner.show{ display:block; }
 .banner.warn{ border-color:var(--danger); color:var(--danger); background:var(--danger-bg); }
+
+.confirm-text{ color:var(--ink-soft); font-size:14px; line-height:1.55; margin:0 0 20px; }
+
+/* ---------- Toast ---------- */
+.toast{
+  position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(12px);
+  background:var(--ink); color:var(--paper);
+  font-family:"Public Sans", sans-serif; font-size:13.5px; font-weight:600;
+  padding:12px 18px; border-radius:8px; box-shadow:var(--shadow);
+  max-width:calc(100vw - 40px); text-align:center; z-index:60;
+  opacity:0; pointer-events:none; transition:opacity .18s ease, transform .18s ease;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+.toast.ok{ background:var(--ok); color:var(--accent-ink); }
+.toast.error{ background:var(--danger); color:#fff; }
+.toast.warn{ background:var(--accent); color:var(--accent-ink); }

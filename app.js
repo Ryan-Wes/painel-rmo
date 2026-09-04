@@ -73,7 +73,7 @@
     if(state[n]){
       releaseFlow(n);
     } else if(n !== lowestAvailable()){
-      alert('As requisições são reservadas em ordem. Pegue o número ' + lowestAvailable() + ' primeiro.');
+      showToast('Reserve em ordem — pegue o número ' + lowestAvailable() + ' primeiro.', 'warn');
     } else {
       autoMode = false;
       openModal(n);
@@ -83,10 +83,43 @@
   document.getElementById('btnNext').addEventListener('click', function(){
     if(!db) return;
     var n = lowestAvailable();
-    if(n === null){ alert('Não há números disponíveis no momento.'); return; }
+    if(n === null){ showToast('Não há números disponíveis no momento.', 'warn'); return; }
     autoMode = true;
     openModal(n);
   });
+
+  // ---------- Toast ----------
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(text, kind){
+    clearTimeout(toastTimer);
+    toast.textContent = text;
+    toast.className = 'toast show' + (kind ? (' ' + kind) : '');
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 3200);
+  }
+
+  // ---------- Confirm dialog ----------
+  var confirmOverlay = document.getElementById('confirmOverlay');
+  var confirmTitleEl = document.getElementById('confirmTitle');
+  var confirmTextEl = document.getElementById('confirmText');
+  var confirmCancelBtn = document.getElementById('confirmCancel');
+  var confirmOkBtn = document.getElementById('confirmOk');
+  var confirmResolve = null;
+
+  function showConfirm(title, text, okLabel){
+    confirmTitleEl.textContent = title;
+    confirmTextEl.textContent = text;
+    confirmOkBtn.textContent = okLabel || 'Confirmar';
+    confirmOverlay.hidden = false;
+    return new Promise(function(resolve){ confirmResolve = resolve; });
+  }
+  function closeConfirm(result){
+    confirmOverlay.hidden = true;
+    if(confirmResolve){ confirmResolve(result); confirmResolve = null; }
+  }
+  confirmCancelBtn.addEventListener('click', function(){ closeConfirm(false); });
+  confirmOkBtn.addEventListener('click', function(){ closeConfirm(true); });
+  confirmOverlay.addEventListener('click', function(e){ if(e.target === confirmOverlay) closeConfirm(false); });
 
   // ---------- Modal ----------
   var overlay = document.getElementById('overlay');
@@ -191,13 +224,15 @@
   function releaseFlow(n){
     var rec = state[n];
     var who = rec ? (rec.takenBy || 'alguém') : '';
-    var ok = window.confirm('Liberar o número ' + n + '? Ele voltará para a lista de disponíveis.\n\nReservado por: ' + who);
-    if(!ok) return;
-    db.collection('requests').doc(String(n)).delete().then(function(){
-      delete state[n];
-      render();
-    }).catch(function(){
-      alert('Não deu para liberar agora. Tente de novo em instantes.');
+    showConfirm('Liberar o número ' + n + '?', 'Reservado por: ' + who + '. Ele voltará para a lista de disponíveis.', 'Liberar').then(function(ok){
+      if(!ok) return;
+      db.collection('requests').doc(String(n)).delete().then(function(){
+        delete state[n];
+        render();
+        showToast('Número ' + n + ' liberado.', 'ok');
+      }).catch(function(){
+        showToast('Não deu para liberar agora. Tente de novo em instantes.', 'error');
+      });
     });
   }
 

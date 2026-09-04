@@ -70,3 +70,21 @@ próximo número disponível aparece destacado com borda; os demais
 disponíveis ficam esmaecidos e mostram, ao passar o mouse, a mensagem
 "Reserve em ordem — pegue o N primeiro". Clicar neles não abre o
 formulário de reserva.
+
+## 2026-09-04 — Fim dos alertas nativos do navegador
+
+Usuário reportou uma caixa cinza feia aparecendo no meio da tela ao
+reservar/liberar um número — era o `alert()`/`window.confirm()` nativo
+do navegador, que renderiza mal no ambiente dele.
+
+Substituídos por componentes próprios, no estilo visual do painel:
+- **Toast**: aviso rápido no rodapé da tela (ex.: "Reserve em ordem —
+  pegue o número N primeiro.", confirmação de liberação), some sozinho
+  depois de alguns segundos.
+- **Diálogo de confirmação**: ao clicar num número reservado para
+  liberá-lo, abre um modal no mesmo estilo do modal de reserva, com o
+  nome de quem reservou, e botões "Cancelar"/"Liberar" — não é mais o
+  `confirm()` cinza do navegador.
+
+O tooltip ao passar o mouse sobre um número reservado (mostrando quem
+reservou) continua funcionando normalmente, sem alteração.
