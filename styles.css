@@ -131,10 +131,7 @@ button{ font:inherit; }
 .cell.taken{ border-color:var(--taken-line); background:var(--taken-bg); color:var(--taken); cursor:pointer; }
 .cell.taken .num{ text-decoration:line-through; text-decoration-thickness:1.5px; }
 
-.cell.locked{
-  background:var(--surface-2); border-color:var(--line); color:var(--ink-faint);
-  cursor:not-allowed; opacity:.55;
-}
+.cell.locked{ cursor:not-allowed; }
 .cell.locked:hover{ filter:none; }
 
 .cell.next{

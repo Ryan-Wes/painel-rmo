@@ -88,3 +88,25 @@ Substituídos por componentes próprios, no estilo visual do painel:
 
 O tooltip ao passar o mouse sobre um número reservado (mostrando quem
 reservou) continua funcionando normalmente, sem alteração.
+
+## 2026-09-04 — Corrigida a caixa vazia ao confirmar reserva
+
+Achado o motivo real da "caixa cinza" que aparecia ao reservar um
+número (bug diferente do `confirm()` nativo corrigido acima, e que
+continuava acontecendo mesmo depois daquele fix): em `app.js`, a tela
+de sucesso (`successView`) tem `display:none` fixo no CSS, e o código
+tentava mostrá-la limpando o estilo inline (`style.display = ''`) —
+isso não sobrescreve a regra do CSS, então a tela de sucesso nunca
+aparecia. O formulário já tinha sumido (`display:none`), sobrando só
+a caixa do modal vazia, sem nome, número ou botão.
+
+Corrigido definindo explicitamente `style.display = 'block'` ao
+mostrar a tela de sucesso. Testado reservando um número de teste
+localmente contra o Firestore real — a tela "RESERVADO PARA VOCÊ" com
+o número e o botão "Concluído" aparece corretamente agora.
+
+Também ajustada a grade: todos os números disponíveis ficam verdes
+(antes os que não podiam ser pegos ainda ficavam acinzentados/opacos);
+agora só o próximo da fila se diferencia por uma borda laranja ao
+redor, o restante permanece verde igual, só sem poder ser clicado
+fora de ordem.

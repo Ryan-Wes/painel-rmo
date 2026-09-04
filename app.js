@@ -177,7 +177,7 @@
       btn.textContent = 'Confirmar';
       document.getElementById('successNum').textContent = n;
       formView.style.display = 'none';
-      successView.style.display = '';
+      successView.style.display = 'block';
       // local snapshot listener will bring the authoritative record shortly;
       // reflect it immediately so the UI doesn't flicker back to "available".
       state[n] = { takenBy: name, takenAt: null };
