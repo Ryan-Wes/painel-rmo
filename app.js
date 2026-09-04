@@ -33,19 +33,29 @@
 
   function render(){
     var availCount = 0, takenCount = 0;
+    var next = lowestAvailable();
     for(var n = MIN; n <= MAX; n++){
       var rec = state[n];
       var c = cells[n];
       if(rec){
         takenCount++;
         c.el.classList.add('taken');
+        c.el.classList.remove('locked', 'next');
         var when = '';
         try{ if(rec.takenAt) when = rec.takenAt.toDate().toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}); }catch(e){}
         c.tip.textContent = (rec.takenBy || 'alguém') + (when ? (' · ' + when) : ' · agora mesmo') + ' · clique para liberar';
       } else {
         availCount++;
         c.el.classList.remove('taken');
-        c.tip.textContent = '';
+        if(n === next){
+          c.el.classList.remove('locked');
+          c.el.classList.add('next');
+          c.tip.textContent = '';
+        } else {
+          c.el.classList.add('locked');
+          c.el.classList.remove('next');
+          c.tip.textContent = 'Reserve em ordem — pegue o ' + next + ' primeiro';
+        }
       }
     }
     document.getElementById('statAvail').textContent = availCount;
@@ -62,6 +72,8 @@
     if(!db){ return; }
     if(state[n]){
       releaseFlow(n);
+    } else if(n !== lowestAvailable()){
+      alert('As requisições são reservadas em ordem. Pegue o número ' + lowestAvailable() + ' primeiro.');
     } else {
       autoMode = false;
       openModal(n);

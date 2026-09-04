@@ -57,3 +57,16 @@ delete livre para permitir liberar número por engano).
 Testado localmente (servidor estático + Firestore real): reserva de
 número grava no banco e reflete em tempo real, liberação apaga o
 documento corretamente. Pendente apenas habilitar o GitHub Pages.
+
+## 2026-09-04 — Cabeçalho centralizado e reserva em ordem
+
+Título/subtítulo do painel centralizados (antes alinhados à esquerda).
+
+Adicionada regra de negócio: só é possível reservar o menor número
+disponível por vez (o "próximo" da fila) — não dá mais para pular e
+pegar um número mais à frente enquanto os anteriores ainda estão livres,
+espelhando a lógica de fila da folha impressa original. Na grade, o
+próximo número disponível aparece destacado com borda; os demais
+disponíveis ficam esmaecidos e mostram, ao passar o mouse, a mensagem
+"Reserve em ordem — pegue o N primeiro". Clicar neles não abre o
+formulário de reserva.
